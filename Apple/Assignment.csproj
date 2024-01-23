@@ -1,0 +1,955 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7420C76-142F-4673-A38B-8874DB308E5E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Assignment</RootNamespace>
+    <AssemblyName>Assignment</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Braintree, Version=5.18.0.0, Culture=neutral, PublicKeyToken=31b586f34d3e96c7, processorArchitecture=MSIL">
+      <HintPath>packages\Braintree.5.18.0\lib\net452\Braintree.dll</HintPath>
+    </Reference>
+    <Reference Include="BraintreeHttp-Dotnet, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BraintreeHttp-Dotnet.0.3.0\lib\netstandard2.0\BraintreeHttp-Dotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphQL, Version=7.6.1.0, Culture=neutral, PublicKeyToken=e6238258560628ee, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL.7.6.1\lib\netstandard2.0\GraphQL.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphQLParser, Version=8.4.0.0, Culture=neutral, PublicKeyToken=e6238258560628ee, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL-Parser.8.4.0\lib\netstandard2.0\GraphQLParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Stripe.net, Version=41.28.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stripe.net.41.28.0\lib\net461\Stripe.net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DataVisualization.Design" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="about.aspx" />
+    <Content Include="DefaultError.html" />
+    <Content Include="FileNotFound.html" />
+    <Content Include="NoAccess.html" />
+    <Content Include="view\admin\AddProductVariant.aspx" />
+    <Content Include="view\admin\CustomerOrder.aspx" />
+    <Content Include="view\admin\CustomerOrderDetail.aspx" />
+    <Content Include="view\admin\Report.aspx" />
+    <Content Include="view\admin\CustomerDetail.aspx" />
+    <Content Include="view\admin\OrdersPage.aspx" />
+    <Content Include="view\admin\UpdatePage.aspx" />
+    <Content Include="view\Login.aspx" />
+    <Content Include="view\PasswordRecovery.aspx" />
+    <Content Include="view\PasswordRecovery.txt" />
+    <Content Include="view\SignUp.aspx" />
+    <Content Include="view\SignUpSuccessful.aspx" />
+    <Content Include="view\admin\AddCategory.aspx" />
+    <Content Include="view\admin\AddProduct.aspx" />
+    <Content Include="App_Data\Shop.mdf" />
+    <Content Include="App_Data\Shop_log.ldf">
+      <DependentUpon>Shop.mdf</DependentUpon>
+    </Content>
+    <Content Include="assets\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-grid.rtl.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.rtl.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.rtl.css" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap.css" />
+    <Content Include="assets\bootstrap\css\bootstrap.min.css" />
+    <Content Include="assets\bootstrap\css\bootstrap.rtl.css" />
+    <Content Include="assets\bootstrap\css\bootstrap.rtl.min.css" />
+    <Content Include="assets\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="assets\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="assets\bootstrap\js\bootstrap.esm.js" />
+    <Content Include="assets\bootstrap\js\bootstrap.esm.min.js" />
+    <Content Include="assets\bootstrap\js\bootstrap.js" />
+    <Content Include="assets\bootstrap\js\bootstrap.min.js" />
+    <Content Include="assets\css\about.css" />
+    <Content Include="assets\css\accessories.css" />
+    <Content Include="assets\css\airpod.css" />
+    <Content Include="assets\css\career.css" />
+    <Content Include="assets\css\cart.css" />
+    <Content Include="assets\css\checkout.css" />
+    <Content Include="assets\css\contact.css" />
+    <Content Include="assets\css\faq.css" />
+    <Content Include="assets\css\feedback.css" />
+    <Content Include="assets\css\index.css" />
+    <Content Include="assets\css\ipad.css" />
+    <Content Include="assets\css\iphone.css" />
+    <Content Include="assets\css\mac.css" />
+    <Content Include="assets\css\phone.css" />
+    <Content Include="assets\css\product.css" />
+    <Content Include="assets\css\services.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\support.css" />
+    <Content Include="assets\css\tv.css" />
+    <Content Include="assets\css\watches.css" />
+    <Content Include="assets\images\4G_cellular.png" />
+    <Content Include="assets\images\5G_cellular.png" />
+    <Content Include="assets\images\A13_chip_icon.png" />
+    <Content Include="assets\images\A15_chip_icon.png" />
+    <Content Include="assets\images\about.jpg" />
+    <Content Include="assets\images\accessories-1.png" />
+    <Content Include="assets\images\accessories-2.png" />
+    <Content Include="assets\images\accessories-3.png" />
+    <Content Include="assets\images\accessories-4.png" />
+    <Content Include="assets\images\accessories-5.png" />
+    <Content Include="assets\images\accessories_hero.jpg" />
+    <Content Include="assets\images\accessories_hero.png" />
+    <Content Include="assets\images\accountablepic.png" />
+    <Content Include="assets\images\air.png" />
+    <Content Include="assets\images\airpod-1.PNG" />
+    <Content Include="assets\images\airpod-2.PNG" />
+    <Content Include="assets\images\airpod-4.PNG" />
+    <Content Include="assets\images\airpod-5.PNG" />
+    <Content Include="assets\images\airpod-6.PNG" />
+    <Content Include="assets\images\airpod-7.PNG" />
+    <Content Include="assets\images\airpod3.PNG" />
+    <Content Include="assets\images\airpods-2nd.jpg" />
+    <Content Include="assets\images\airpods-3rd.jpg" />
+    <Content Include="assets\images\airpods-pro.jpg" />
+    <Content Include="assets\images\airpods2.jpg" />
+    <Content Include="assets\images\airpods3.jpg" />
+    <Content Include="assets\images\airpodspro.jpg" />
+    <Content Include="assets\images\airpods_2ndgen_left.png" />
+    <Content Include="assets\images\airpods_2ndgen_right.png" />
+    <Content Include="assets\images\airpods_pro_left.png" />
+    <Content Include="assets\images\airpods_pro_right.png" />
+    <Content Include="assets\images\airtag.jfif" />
+    <Content Include="assets\images\airtag.png" />
+    <Content Include="assets\images\apple-fav.png" />
+    <Content Include="assets\images\apple-hero.png" />
+    <Content Include="assets\images\apple-id.png" />
+    <Content Include="assets\images\apple-products.jpg" />
+    <Content Include="assets\images\apple-tv-4k.jpg" />
+    <Content Include="assets\images\apple-tv-hd.jpg" />
+    <Content Include="assets\images\apple-watch-se-blue-jay.jfif" />
+    <Content Include="assets\images\apple-watch-se-lavender-gray.jfif" />
+    <Content Include="assets\images\apple-watch-se-midnight.jfif" />
+    <Content Include="assets\images\apple-watch-se-nectarine-peony.jfif" />
+    <Content Include="assets\images\apple-watch-se-oat-milk.jfif" />
+    <Content Include="assets\images\apple-watch3-black.png" />
+    <Content Include="assets\images\apple-watch3-white.png" />
+    <Content Include="assets\images\apple-watch7-blue-jay.jfif" />
+    <Content Include="assets\images\apple-watch7-lavender-gray.jfif" />
+    <Content Include="assets\images\apple-watch7-midnight.jfif" />
+    <Content Include="assets\images\apple-watch7-nectarine-peony.jfif" />
+    <Content Include="assets\images\apple-watch7-oat-milk.jfif" />
+    <Content Include="assets\images\applepencil1.png" />
+    <Content Include="assets\images\appletv.jpg" />
+    <Content Include="assets\images\appletvplus.png" />
+    <Content Include="assets\images\Apple_Loop_1.mp4" />
+    <Content Include="assets\images\apple_services_icons__sexuv1uj3eaq_large.png" />
+    <Content Include="assets\images\apple_tv_icon__bvibg7x6ma1y_large.png" />
+    <Content Include="assets\images\background-grey-gradient.jpg" />
+    <Content Include="assets\images\black.jpg" />
+    <Content Include="assets\images\black2.jpg" />
+    <Content Include="assets\images\black_apple_icon.png" />
+    <Content Include="assets\images\blue-bold-video.png" />
+    <Content Include="assets\images\blue-video.png" />
+    <Content Include="assets\images\cable.png" />
+    <Content Include="assets\images\career.jpg" />
+    <Content Include="assets\images\chat.png" />
+    <Content Include="assets\images\citi.png" />
+    <Content Include="assets\images\coming-soon-1.jpg" />
+    <Content Include="assets\images\coming-soon-2.jpg" />
+    <Content Include="assets\images\coming-soon-3.jpg" />
+    <Content Include="assets\images\coming-soon-4.jpg" />
+    <Content Include="assets\images\compliancepic.jpg" />
+    <Content Include="assets\images\conductpolicypic.jpg" />
+    <Content Include="assets\images\creative.jpg" />
+    <Content Include="assets\images\dual-iphone13.png" />
+    <Content Include="assets\images\fa-fa-bar.png" />
+    <Content Include="assets\images\facebook.png" />
+    <Content Include="assets\images\feedback-pic.PNG" />
+    <Content Include="assets\images\full_apple_one__bbfm4onc05ua_large.jpg" />
+    <Content Include="assets\images\Hardware.png" />
+    <Content Include="assets\images\hold_iphone.jpg" />
+    <Content Include="assets\images\hsbc.png" />
+    <Content Include="assets\images\imac-24-blue.jpg" />
+    <Content Include="assets\images\imac-24-green.jpg" />
+    <Content Include="assets\images\imac-24-orange.jpg" />
+    <Content Include="assets\images\imac-24-pink.jpg" />
+    <Content Include="assets\images\imac-24-purple.jpg" />
+    <Content Include="assets\images\imac-24-silver.jpg" />
+    <Content Include="assets\images\imac-24-yellow.jpg" />
+    <Content Include="assets\images\imac.png" />
+    <Content Include="assets\images\imacs.png" />
+    <Content Include="assets\images\instagram.png" />
+    <Content Include="assets\images\intro.jpg" />
+    <Content Include="assets\images\intro2.jpg" />
+    <Content Include="assets\images\ipad-air-blue.png" />
+    <Content Include="assets\images\ipad-air-pink.png" />
+    <Content Include="assets\images\ipad-air-purple.png" />
+    <Content Include="assets\images\ipad-air-spacegray.png" />
+    <Content Include="assets\images\ipad-air-starlight.png" />
+    <Content Include="assets\images\ipad-mini-gray.png" />
+    <Content Include="assets\images\ipad-mini-pink.png" />
+    <Content Include="assets\images\ipad-mini-purple.png" />
+    <Content Include="assets\images\ipad-mini-starlight.png" />
+    <Content Include="assets\images\ipad-mini.jpg" />
+    <Content Include="assets\images\ipad.jpg" />
+    <Content Include="assets\images\ipadair_camera_module.png" />
+    <Content Include="assets\images\ipadair_compare.png" />
+    <Content Include="assets\images\ipadmini_camera_module.png" />
+    <Content Include="assets\images\ipadmini_compare.png" />
+    <Content Include="assets\images\ipadpro_black_white.jpg" />
+    <Content Include="assets\images\ipadpro_camera_module.png" />
+    <Content Include="assets\images\ipadpro_compare.png" />
+    <Content Include="assets\images\iPad_air-removebg.png" />
+    <Content Include="assets\images\ipad_air.png" />
+    <Content Include="assets\images\iPad_air_vertical-removebg.png" />
+    <Content Include="assets\images\ipad_camera_module.png" />
+    <Content Include="assets\images\ipad_compare.png" />
+    <Content Include="assets\images\iphone-13-blue-case.jfif" />
+    <Content Include="assets\images\iphone-13-blue.png" />
+    <Content Include="assets\images\iphone-13-clear-case.jfif" />
+    <Content Include="assets\images\iphone-13-dark-case.jfif" />
+    <Content Include="assets\images\iphone-13-euca-case.jfif" />
+    <Content Include="assets\images\iphone-13-green.png" />
+    <Content Include="assets\images\iphone-13-midnight.png" />
+    <Content Include="assets\images\iphone-13-nectarine-case.jfif" />
+    <Content Include="assets\images\iphone-13-pink.png" />
+    <Content Include="assets\images\iphone-13-pro-blue.png" />
+    <Content Include="assets\images\iphone-13-pro-gold.png" />
+    <Content Include="assets\images\iphone-13-pro-graphite.png" />
+    <Content Include="assets\images\iphone-13-pro-green.png" />
+    <Content Include="assets\images\iphone-13-pro-silver.png" />
+    <Content Include="assets\images\iphone-13-red.png" />
+    <Content Include="assets\images\iphone-13-starlight.png" />
+    <Content Include="assets\images\iphone-se-midnight.png" />
+    <Content Include="assets\images\iphone-se-red.png" />
+    <Content Include="assets\images\iphone-se-starlight.png" />
+    <Content Include="assets\images\iphone13pro.png" />
+    <Content Include="assets\images\iphone13pro_promax.jpg" />
+    <Content Include="assets\images\iphone13pro_promax.png" />
+    <Content Include="assets\images\iphone13pro_promax2.jpg" />
+    <Content Include="assets\images\iphone13_pink.jpg" />
+    <Content Include="assets\images\iphone_13.png" />
+    <Content Include="assets\images\iphone_13_family.png" />
+    <Content Include="assets\images\iphone_13_pro.png" />
+    <Content Include="assets\images\IPhone_SE.png" />
+    <Content Include="assets\images\IPhone_SE_logo.png" />
+    <Content Include="assets\images\large.mp4" />
+    <Content Include="assets\images\large_2x.mp4" />
+    <Content Include="assets\images\lifepic.png" />
+    <Content Include="assets\images\lightning_connector.png" />
+    <Content Include="assets\images\M1_chip_icon.png" />
+    <Content Include="assets\images\macbanner.jpg" />
+    <Content Include="assets\images\macbooks.png" />
+    <Content Include="assets\images\macbook_air.png" />
+    <Content Include="assets\images\macbook_pro.png" />
+    <Content Include="assets\images\MachineAndAI.png" />
+    <Content Include="assets\images\mac_mini.png" />
+    <Content Include="assets\images\mac_pro.png" />
+    <Content Include="assets\images\mac_studio.png" />
+    <Content Include="assets\images\magic-keyboard.png" />
+    <Content Include="assets\images\magickeyboard.png" />
+    <Content Include="assets\images\magsafe.jfif" />
+    <Content Include="assets\images\magsafe.png" />
+    <Content Include="assets\images\master-card.png" />
+    <Content Include="assets\images\most-popular-1.jpg" />
+    <Content Include="assets\images\most-popular-2.jpg" />
+    <Content Include="assets\images\most-popular-3.jpg" />
+    <Content Include="assets\images\most-popular-4.jpg" />
+    <Content Include="assets\images\pachinko.jpg" />
+    <Content Include="assets\images\plus-sign.png" />
+    <Content Include="assets\images\product-accessories.png" />
+    <Content Include="assets\images\product-airpod.png" />
+    <Content Include="assets\images\product-ipad.png" />
+    <Content Include="assets\images\product-iphone.png" />
+    <Content Include="assets\images\product-mac.png" />
+    <Content Include="assets\images\product-tv.png" />
+    <Content Include="assets\images\product-watches.png" />
+    <Content Include="assets\images\roar.jpg" />
+    <Content Include="assets\images\search.png" />
+    <Content Include="assets\images\service.jpg" />
+    <Content Include="assets\images\services1.jpg" />
+    <Content Include="assets\images\services2.jpg" />
+    <Content Include="assets\images\services3.jpg" />
+    <Content Include="assets\images\services4.jpg" />
+    <Content Include="assets\images\services5.jpg" />
+    <Content Include="assets\images\services6.jpg" />
+    <Content Include="assets\images\severance.jpg" />
+    <Content Include="assets\images\shop.png" />
+    <Content Include="assets\images\simple-down-arrow.png" />
+    <Content Include="assets\images\slow-horses.jpg" />
+    <Content Include="assets\images\smartcover.png" />
+    <Content Include="assets\images\smartfolio.png" />
+    <Content Include="assets\images\smartkeyboard.png" />
+    <Content Include="assets\images\snoopy-presents-its-the-small-things-charlie-brown.jpg" />
+    <Content Include="assets\images\SoftwareAndServices.png" />
+    <Content Include="assets\images\sololoopband.png" />
+    <Content Include="assets\images\spcontactus.jpg" />
+    <Content Include="assets\images\spfaq.jpg" />
+    <Content Include="assets\images\spfeedback.jpg" />
+    <Content Include="assets\images\spphonenumber.jpg" />
+    <Content Include="assets\images\Stillwater.jpg" />
+    <Content Include="assets\images\support.jpg" />
+    <Content Include="assets\images\SupportAndService.png" />
+    <Content Include="assets\images\test_images\blank-testing-image.jpg" />
+    <Content Include="assets\images\test_images\test-user-profile-picture.png" />
+    <Content Include="assets\images\the-long-game-bigger-than-basketball.jpg" />
+    <Content Include="assets\images\twitter.png" />
+    <Content Include="assets\images\usb-c_connector.png" />
+    <Content Include="assets\images\usb-c_with_thunderbolt.png" />
+    <Content Include="assets\images\visa.png" />
+    <Content Include="assets\images\wa1.jpg" />
+    <Content Include="assets\images\wa2.jpg" />
+    <Content Include="assets\images\wa3.jpg" />
+    <Content Include="assets\images\wa4.jpg" />
+    <Content Include="assets\images\wa5.jpg" />
+    <Content Include="assets\images\watch3.jpg" />
+    <Content Include="assets\images\watch7.jpg" />
+    <Content Include="assets\images\watches-film.mp4" />
+    <Content Include="assets\images\watches-section1.jpg" />
+    <Content Include="assets\images\watches-section2-1.jpg" />
+    <Content Include="assets\images\watches-section2.PNG" />
+    <Content Include="assets\images\watches-section3-1.jpg" />
+    <Content Include="assets\images\watches-section3-2.jpg" />
+    <Content Include="assets\images\watches1.jpg" />
+    <Content Include="assets\images\watchse.jpg" />
+    <Content Include="assets\images\wecrashed.jpg" />
+    <Content Include="assets\images\while_apple_icon.png" />
+    <Content Include="assets\images\white-bag.png" />
+    <Content Include="assets\images\white-cart.jpg" />
+    <Content Include="assets\images\xdr.png" />
+    <Content Include="assets\images\youtube.png" />
+    <Content Include="assets\javascript\careerScroll.js" />
+    <Content Include="assets\javascript\cart-product.js" />
+    <Content Include="assets\javascript\cart.js" />
+    <Content Include="assets\javascript\checkout.js" />
+    <Content Include="assets\javascript\display-product.js" />
+    <Content Include="assets\javascript\faq.js" />
+    <Content Include="assets\javascript\feedback.js" />
+    <Content Include="assets\javascript\function.js" />
+    <Content Include="assets\javascript\ipad.js" />
+    <Content Include="assets\javascript\iphone.js" />
+    <Content Include="assets\javascript\mac.js" />
+    <Content Include="assets\javascript\scroll.js" />
+    <Content Include="assets\javascript\splash.js" />
+    <Content Include="assets\javascript\star.js" />
+    <Content Include="career.aspx" />
+    <Content Include="cart\cart.aspx" />
+    <Content Include="cart\checkout.aspx" />
+    <Content Include="cart\fail.aspx" />
+    <Content Include="cart\ProductDetail.aspx" />
+    <Content Include="cart\success.aspx" />
+    <Content Include="view\admin\Category.aspx" />
+    <Content Include="view\admin\ConfirmOrders.aspx" />
+    <Content Include="view\admin\Customer.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="index.aspx" />
+    <Content Include="view\admin\Menu.aspx" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="view\admin\Product.aspx" />
+    <Content Include="view\admin\ProductVariant.aspx" />
+    <Content Include="product\accessories.aspx" />
+    <Content Include="product\airpod.aspx" />
+    <Content Include="product\ipad.aspx" />
+    <Content Include="product\iphone.aspx" />
+    <Content Include="product\mac.aspx" />
+    <Content Include="product\product.aspx" />
+    <Content Include="product\services.aspx" />
+    <Content Include="product\tv.aspx" />
+    <Content Include="product\watches.aspx" />
+    <Content Include="support\contact.aspx" />
+    <Content Include="support\support.aspx" />
+    <Content Include="view\user\ChangePassword.aspx" />
+    <Content Include="view\user\EditProfile.aspx" />
+    <Content Include="view\user\OrderHistory.aspx" />
+    <Content Include="view\user\UserProfile.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="about.aspx.cs">
+      <DependentUpon>about.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="about.aspx.designer.cs">
+      <DependentUpon>about.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cart\CartItem.cs" />
+    <Compile Include="cart\DataAccess.cs" />
+    <Compile Include="view\admin\AddProductVariant.aspx.cs">
+      <DependentUpon>AddProductVariant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\AddProductVariant.aspx.designer.cs">
+      <DependentUpon>AddProductVariant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\CustomerOrder.aspx.cs">
+      <DependentUpon>CustomerOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\CustomerOrder.aspx.designer.cs">
+      <DependentUpon>CustomerOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\CustomerOrderDetail.aspx.cs">
+      <DependentUpon>CustomerOrderDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\CustomerOrderDetail.aspx.designer.cs">
+      <DependentUpon>CustomerOrderDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\CustomerDetail.aspx.cs">
+      <DependentUpon>CustomerDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\CustomerDetail.aspx.designer.cs">
+      <DependentUpon>CustomerDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\OrdersPage.aspx.cs">
+      <DependentUpon>OrdersPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\OrdersPage.aspx.designer.cs">
+      <DependentUpon>OrdersPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\UpdatePage.aspx.cs">
+      <DependentUpon>UpdatePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\UpdatePage.aspx.designer.cs">
+      <DependentUpon>UpdatePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\PasswordRecovery.aspx.cs">
+      <DependentUpon>PasswordRecovery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\PasswordRecovery.aspx.designer.cs">
+      <DependentUpon>PasswordRecovery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\SignUp.aspx.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\SignUp.aspx.designer.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\SignUpSuccessful.aspx.cs">
+      <DependentUpon>SignUpSuccessful.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\SignUpSuccessful.aspx.designer.cs">
+      <DependentUpon>SignUpSuccessful.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\AddCategory.aspx.cs">
+      <DependentUpon>AddCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\AddCategory.aspx.designer.cs">
+      <DependentUpon>AddCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\AddProduct.aspx.cs">
+      <DependentUpon>AddProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\AddProduct.aspx.designer.cs">
+      <DependentUpon>AddProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Assignment.Master.cs">
+      <DependentUpon>Assignment.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Assignment.Master.designer.cs">
+      <DependentUpon>Assignment.Master</DependentUpon>
+    </Compile>
+    <Compile Include="career.aspx.cs">
+      <DependentUpon>career.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="career.aspx.designer.cs">
+      <DependentUpon>career.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cart\cart.aspx.cs">
+      <DependentUpon>cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cart\cart.aspx.designer.cs">
+      <DependentUpon>cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cart\checkout.aspx.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cart\checkout.aspx.designer.cs">
+      <DependentUpon>checkout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cart\fail.aspx.cs">
+      <DependentUpon>fail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cart\fail.aspx.designer.cs">
+      <DependentUpon>fail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cart\ProductDetail.aspx.cs">
+      <DependentUpon>ProductDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cart\ProductDetail.aspx.designer.cs">
+      <DependentUpon>ProductDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cart\success.aspx.cs">
+      <DependentUpon>success.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cart\success.aspx.designer.cs">
+      <DependentUpon>success.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\ConfirmOrders.aspx.cs">
+      <DependentUpon>ConfirmOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\ConfirmOrders.aspx.designer.cs">
+      <DependentUpon>ConfirmOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\Customer.aspx.cs">
+      <DependentUpon>Customer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\Customer.aspx.designer.cs">
+      <DependentUpon>Customer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\Menu.aspx.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\Menu.aspx.designer.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order_Detail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product_Variant.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\State.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Variant.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\Product.aspx.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\Product.aspx.designer.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\admin\ProductVariant.aspx.cs">
+      <DependentUpon>ProductVariant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\admin\ProductVariant.aspx.designer.cs">
+      <DependentUpon>ProductVariant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\accessories.aspx.cs">
+      <DependentUpon>accessories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\accessories.aspx.designer.cs">
+      <DependentUpon>accessories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\airpod.aspx.cs">
+      <DependentUpon>airpod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\airpod.aspx.designer.cs">
+      <DependentUpon>airpod.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\ipad.aspx.cs">
+      <DependentUpon>ipad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\ipad.aspx.designer.cs">
+      <DependentUpon>ipad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\iphone.aspx.cs">
+      <DependentUpon>iphone.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\iphone.aspx.designer.cs">
+      <DependentUpon>iphone.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\mac.aspx.cs">
+      <DependentUpon>mac.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\mac.aspx.designer.cs">
+      <DependentUpon>mac.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\product.aspx.cs">
+      <DependentUpon>product.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\product.aspx.designer.cs">
+      <DependentUpon>product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\services.aspx.cs">
+      <DependentUpon>services.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\services.aspx.designer.cs">
+      <DependentUpon>services.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\tv.aspx.cs">
+      <DependentUpon>tv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\tv.aspx.designer.cs">
+      <DependentUpon>tv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="product\watches.aspx.cs">
+      <DependentUpon>watches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="product\watches.aspx.designer.cs">
+      <DependentUpon>watches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site1.Master.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site1.Master.designer.cs">
+      <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="support\contact.aspx.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="support\contact.aspx.designer.cs">
+      <DependentUpon>contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="support\support.aspx.cs">
+      <DependentUpon>support.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="support\support.aspx.designer.cs">
+      <DependentUpon>support.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\user\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\user\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\user\EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\user\EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\user\OrderHistory.aspx.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\user\OrderHistory.aspx.designer.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\user\UserPortal.Master.cs">
+      <DependentUpon>UserPortal.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\user\UserPortal.Master.designer.cs">
+      <DependentUpon>UserPortal.Master</DependentUpon>
+    </Compile>
+    <Compile Include="view\user\UserProfile.aspx.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\user\UserProfile.aspx.designer.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.sitemap" />
+    <Content Include="Assignment.Master" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model11.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="assets\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap.rtl.css.map" />
+    <Content Include="assets\bootstrap\css\bootstrap.rtl.min.css.map" />
+    <Content Include="assets\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="assets\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="assets\bootstrap\js\bootstrap.esm.js.map" />
+    <Content Include="assets\bootstrap\js\bootstrap.esm.min.js.map" />
+    <Content Include="assets\bootstrap\js\bootstrap.js.map" />
+    <Content Include="assets\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="cart\Web.config" />
+    <None Include="packages.config" />
+    <Content Include="Site1.Master" />
+    <Content Include="view\user\UserPortal.Master" />
+    <Content Include="view\user\Web.config" />
+    <Content Include="view\admin\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59674</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:59674/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://localhost:59674/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:59674/" workingDir="" />
+          </servers>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

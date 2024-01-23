@@ -1,0 +1,121 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Assignment.master.cs" Inherits="Assignment.Assignment" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="<%=ResolveClientUrl("assets/images/apple-fav.png")%>" type="image/x-icon">
+    <link href="<%=ResolveClientUrl("assets/css/style.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveClientUrl("assets/css/index.css")%>" rel="stylesheet" type="text/css" />
+    <script src="<%=ResolveClientUrl("assets/javascript/function.js")%>" defer></script>
+    <script src="<%=ResolveClientUrl("assets/javascript/scroll.js")%>" defer></script>
+
+    <!-- Dialogflow Chatbot>-->
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME" chat-title="Live Chat" agent-id="d3c85f8a-0a7a-4c5e-bf08-0bd15ed128d8" wait-open="true" chat-icon="<%=ResolveClientUrl("assets/images/chat.png")%>" language-code="en"></df-messenger>
+    <!--Load javascript after the webpage finish loaded-->
+</head>
+<body>
+    <div>
+    <div class="nav">
+        <nav class="navbar-container">
+            <!--navigation bar-->
+            <ul class="links-container">
+                <li>
+                    <a href="<%=ResolveClientUrl("index.aspx")%>"><img class="logo" src="<%=ResolveClientUrl("assets/images/while_apple_icon.png")%>" alt="logo"></a>
+                </li>
+                <li class="links with-dropdown">
+                    <!--clickable menu-->
+                    <a tabindex="0" href="#">Products</a>
+                    <!--adding tabindex instead of href = "#" to prevent the webpage refresh while clicking on the dropdown-->
+
+                    <ul class="dropdown">
+                        <!--dropdown hidden when not hovered-->
+                        <li class="option"><a href="<%=ResolveClientUrl("product/product.aspx")%>">Products</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/mac.aspx")%>">Mac</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/iphone.aspx")%>">iPhone</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/ipad.aspx")%>">iPad</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/airpod.aspx")%>">AirPod</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/watches.aspx")%>">Watches</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/tv.aspx")%>">TV</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/accessories.aspx")%>">Accessories</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("product/services.aspx")%>">Services</a></li>
+                    </ul>
+                </li>
+
+                <li class="links with-dropdown">
+                    <a tabindex="0" href="#">Support</a>
+                    <!--adding tabindex instead of href = "#" to prevent the webpage refresh while clicking on the dropdown-->
+
+                    <ul class="dropdown">
+                        <li class="option"><a href="<%=ResolveClientUrl("support/support.aspx")%>">Support</a></li>
+                        <li class="option"><a href="<%=ResolveClientUrl("support/contact.aspx")%>">Contact Us</a></li>
+                       
+                    </ul>
+                </li>
+
+                <li class="links"><a href="<%=ResolveClientUrl("about.aspx")%>">About Us</a></li>
+                <li class="links"><a href="<%=ResolveClientUrl("career.aspx")%>">Join Us</a></li>
+                <li class="bar">
+                    <a tabindex="0"><img id="solid-bar" src="<%=ResolveClientUrl("assets/images/fa-fa-bar.png")%>" width="20px"></a>
+                </li>
+                <li class="cart">
+                    <a href="<%=ResolveClientUrl("cart/cart.aspx")%>"><img src="<%=ResolveClientUrl("assets/images/white-cart.jpg")%>" alt="cart"></a>
+                </li>
+                <li class ="cart">
+                    <a href="<%=ResolveClientUrl("~/view/user/userProfile.aspx")%>"><img src="<%=ResolveClientUrl("assets/images/profile.png")%>" alt="profile"></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+        </div>
+
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        <footer class="footer-container">
+        <div class="footer-paragraph">
+            <h2>Apple Products</h2>
+            <p>
+                This website is used for study purpose only. For more and latest infomation, please refer to the Apple official website.
+            </p>
+            <ul class="social-media">
+                <li>
+                    <a href="https://www.apple.com/my/?cid=oas-japac-domains-apple.my/"><img src="<%=ResolveClientUrl("assets/images/black_apple_icon.png")%>" alt="official"></a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/apple/"><img src="<%=ResolveClientUrl("assets/images/facebook.png")%>" alt="facebook"></a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/apple/"><img src="<%=ResolveClientUrl("assets/images/instagram.png")%>" alt="instagram"></a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/apple"><img src="<%=ResolveClientUrl("assets/images/twitter.png")%>" alt="twitter"></a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/user/Apple"><img src="<%=ResolveClientUrl("assets/images/youtube.png")%>" alt="youtube"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <p><b>&copy;Apple Products 2023</b></p>
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="<%=ResolveClientUrl("index.aspx")%>">Home</a></li>
+                <li><a href="<%=ResolveClientUrl("product/product.aspx")%>">Products</a></li>
+                <li><a href="<%=ResolveClientUrl("support/support.aspx")%>">Support</a></li>
+                <li><a href="<%=ResolveClientUrl("about.aspx")%>">About Us</a></li>
+                <li><a href="<%=ResolveClientUrl("cart/cart.aspx")%>">Shop</a></li>
+                <li><a href="<%=ResolveClientUrl("career.aspx")%>">Join Us </a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

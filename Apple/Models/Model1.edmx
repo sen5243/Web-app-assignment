@@ -1,0 +1,575 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email_Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="Date_Of_Birth" Type="date" />
+          <Property Name="Phone_No" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Postal_Code" Type="nchar" MaxLength="5" />
+          <Property Name="State" Type="int" />
+        </EntityType>
+        <EntityType Name="Order_Detail">
+          <Key>
+            <PropertyRef Name="Order_No" />
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Variant_ID" />
+          </Key>
+          <Property Name="Order_No" Type="int" Nullable="false" />
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Variant_ID" Type="int" Nullable="false" />
+          <Property Name="Subtotal" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_No" />
+          </Key>
+          <Property Name="Order_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_Date" Type="datetime" />
+          <Property Name="Total_Amount" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="Shipped_Date" Type="date" />
+          <Property Name="Ship_Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ship_State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ship_Postal_Code" Type="nchar" MaxLength="10" />
+          <Property Name="Order_Status" Type="nchar" MaxLength="10" />
+          <Property Name="Customer_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Image_Path" Type="nvarchar" MaxLength="100" />
+          <Property Name="Category_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Product_Variant">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Variant_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Variant_ID" Type="int" Nullable="false" />
+          <Property Name="Variant_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Unit_Price" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Image_Path" Type="nvarchar" MaxLength="100" />
+          <Property Name="Units_In_Stock" Type="int" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="State_ID" />
+          </Key>
+          <Property Name="State_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Variant">
+          <Key>
+            <PropertyRef Name="Variant_ID" />
+          </Key>
+          <Property Name="Variant_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Size" Type="nchar" MaxLength="10" />
+          <Property Name="Colour" Type="nvarchar" MaxLength="50" />
+          <Property Name="Additional_Feature" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Customers__State__49C3F6B7">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="State_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Det__Order__40058253">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_No" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="Order_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Detail__756D6ECB">
+          <End Role="Product_Variant" Type="Self.Product_Variant" Multiplicity="1" />
+          <End Role="Order_Detail" Type="Self.Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Variant">
+              <PropertyRef Name="Product_ID" />
+              <PropertyRef Name="Variant_ID" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="Product_ID" />
+              <PropertyRef Name="Variant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Customer__40F9A68C">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Categor__625A9A57">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_V__Produ__7755B73D">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product_Variant" Type="Self.Product_Variant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Product_Variant">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_V__Varia__76619304">
+          <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+          <End Role="Product_Variant" Type="Self.Product_Variant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Variant">
+              <PropertyRef Name="Variant_ID" />
+            </Principal>
+            <Dependent Role="Product_Variant">
+              <PropertyRef Name="Variant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Detail" EntityType="Self.Order_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Variant" EntityType="Self.Product_Variant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Variant" EntityType="Self.Variant" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Customers__State__49C3F6B7" Association="Self.FK__Customers__State__49C3F6B7">
+            <End Role="State" EntitySet="State" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Det__Order__40058253" Association="Self.FK__Order_Det__Order__40058253">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Detail__756D6ECB" Association="Self.FK__Order_Detail__756D6ECB">
+            <End Role="Product_Variant" EntitySet="Product_Variant" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Customer__40F9A68C" Association="Self.FK__Orders__Customer__40F9A68C">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Categor__625A9A57" Association="Self.FK__Product__Categor__625A9A57">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_V__Produ__7755B73D" Association="Self.FK__Product_V__Produ__7755B73D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Product_Variant" EntitySet="Product_Variant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_V__Varia__76619304" Association="Self.FK__Product_V__Varia__76619304">
+            <End Role="Variant" EntitySet="Variant" />
+            <End Role="Product_Variant" EntitySet="Product_Variant" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Categor__02FC7413" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Customer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Of_Birth" Type="DateTime" Precision="0" />
+          <Property Name="Phone_No" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Postal_Code" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="State" Type="Int32" />
+          <NavigationProperty Name="State1" Relationship="Self.FK__Customers__State__49C3F6B7" FromRole="Customers" ToRole="State" />
+          <NavigationProperty Name="Orders" Relationship="ShopModel.FK__Orders__Customer__40F9A68C" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Category_ID" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__02FC7413" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Product_Variant" Relationship="Self.FK__Product_V__Produ__160F4887" FromRole="Product" ToRole="Product_Variant" />
+          <Property Name="Image_Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product_Variant">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Variant_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Variant_ID" Type="Int32" Nullable="false" />
+          <Property Name="Variant_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Unit_Price" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Units_In_Stock" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Product_V__Produ__160F4887" FromRole="Product_Variant" ToRole="Product" />
+          <NavigationProperty Name="Variant" Relationship="Self.FK__Product_V__Varia__17036CC0" FromRole="Product_Variant" ToRole="Variant" />
+          <Property Name="Image_Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order_Detail" Relationship="ShopModel.FK__Order_Detail__756D6ECB" FromRole="Product_Variant" ToRole="Order_Detail" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="State_ID" />
+          </Key>
+          <Property Name="State_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Customers__State__49C3F6B7" FromRole="State" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Variant">
+          <Key>
+            <PropertyRef Name="Variant_ID" />
+          </Key>
+          <Property Name="Variant_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Size" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Colour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Additional_Feature" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product_Variant" Relationship="Self.FK__Product_V__Varia__17036CC0" FromRole="Variant" ToRole="Product_Variant" />
+        </EntityType>
+        <Association Name="FK__Product__Categor__02FC7413">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Customers__State__49C3F6B7">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="State_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_V__Produ__160F4887">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product_Variant" Type="Self.Product_Variant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Product_Variant">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product_V__Varia__17036CC0">
+          <End Role="Variant" Type="Self.Variant" Multiplicity="1" />
+          <End Role="Product_Variant" Type="Self.Product_Variant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Variant">
+              <PropertyRef Name="Variant_ID" />
+            </Principal>
+            <Dependent Role="Product_Variant">
+              <PropertyRef Name="Variant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Product_Variant" EntityType="Self.Product_Variant" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="Variants" EntityType="Self.Variant" />
+          <AssociationSet Name="FK__Product__Categor__02FC7413" Association="Self.FK__Product__Categor__02FC7413">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Customers__State__49C3F6B7" Association="Self.FK__Customers__State__49C3F6B7">
+            <End Role="State" EntitySet="States" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_V__Produ__160F4887" Association="Self.FK__Product_V__Produ__160F4887">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Product_Variant" EntitySet="Product_Variant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product_V__Varia__17036CC0" Association="Self.FK__Product_V__Varia__17036CC0">
+            <End Role="Variant" EntitySet="Variants" />
+            <End Role="Product_Variant" EntitySet="Product_Variant" />
+          </AssociationSet>
+          <EntitySet Name="Order_Detail" EntityType="ShopModel.Order_Detail" />
+          <EntitySet Name="Orders" EntityType="ShopModel.Order" />
+          <AssociationSet Name="FK__Orders__Customer__40F9A68C" Association="ShopModel.FK__Orders__Customer__40F9A68C">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Det__Order__40058253" Association="ShopModel.FK__Order_Det__Order__40058253">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Detail__756D6ECB" Association="ShopModel.FK__Order_Detail__756D6ECB">
+            <End Role="Product_Variant" EntitySet="Product_Variant" />
+            <End Role="Order_Detail" EntitySet="Order_Detail" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Order_Detail">
+          <Key>
+            <PropertyRef Name="Order_No" />
+            <PropertyRef Name="Product_ID" />
+            <PropertyRef Name="Variant_ID" />
+          </Key>
+          <Property Name="Order_No" Type="Int32" Nullable="false" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Variant_ID" Type="Int32" Nullable="false" />
+          <Property Name="Subtotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="ShopModel.FK__Order_Det__Order__40058253" FromRole="Order_Detail" ToRole="Order" />
+          <NavigationProperty Name="Product_Variant" Relationship="ShopModel.FK__Order_Detail__756D6ECB" FromRole="Order_Detail" ToRole="Product_Variant" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_No" />
+          </Key>
+          <Property Name="Order_No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Date" Type="DateTime" Precision="3" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Shipped_Date" Type="DateTime" Precision="0" />
+          <Property Name="Ship_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ship_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ship_Postal_Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Order_Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="ShopModel.FK__Orders__Customer__40F9A68C" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Order_Detail" Relationship="ShopModel.FK__Order_Det__Order__40058253" FromRole="Order" ToRole="Order_Detail" />
+        </EntityType>
+        <Association Name="FK__Orders__Customer__40F9A68C">
+          <End Type="ShopModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ShopModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Det__Order__40058253">
+          <End Type="ShopModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="ShopModel.Order_Detail" Role="Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Order_No" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="Order_No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Detail__756D6ECB">
+          <End Type="ShopModel.Product_Variant" Role="Product_Variant" Multiplicity="1" />
+          <End Type="ShopModel.Order_Detail" Role="Order_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Variant">
+              <PropertyRef Name="Product_ID" />
+              <PropertyRef Name="Variant_ID" />
+            </Principal>
+            <Dependent Role="Order_Detail">
+              <PropertyRef Name="Product_ID" />
+              <PropertyRef Name="Variant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopModelStoreContainer" CdmEntityContainer="ShopEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ShopModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ShopModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email_Address" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Date_Of_Birth" ColumnName="Date_Of_Birth" />
+                <ScalarProperty Name="Phone_No" ColumnName="Phone_No" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Postal_Code" ColumnName="Postal_Code" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ShopModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Image_Path" ColumnName="Image_Path" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Variant">
+            <EntityTypeMapping TypeName="ShopModel.Product_Variant">
+              <MappingFragment StoreEntitySet="Product_Variant">
+                <ScalarProperty Name="Image_Path" ColumnName="Image_Path" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Variant_ID" ColumnName="Variant_ID" />
+                <ScalarProperty Name="Variant_Name" ColumnName="Variant_Name" />
+                <ScalarProperty Name="Unit_Price" ColumnName="Unit_Price" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Units_In_Stock" ColumnName="Units_In_Stock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="ShopModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="State_ID" ColumnName="State_ID" />
+                <ScalarProperty Name="State_Name" ColumnName="State_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Variants">
+            <EntityTypeMapping TypeName="ShopModel.Variant">
+              <MappingFragment StoreEntitySet="Variant">
+                <ScalarProperty Name="Variant_ID" ColumnName="Variant_ID" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Colour" ColumnName="Colour" />
+                <ScalarProperty Name="Additional_Feature" ColumnName="Additional_Feature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Detail">
+            <EntityTypeMapping TypeName="ShopModel.Order_Detail">
+              <MappingFragment StoreEntitySet="Order_Detail">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="Variant_ID" ColumnName="Variant_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Order_No" ColumnName="Order_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShopModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
+                <ScalarProperty Name="Ship_Postal_Code" ColumnName="Ship_Postal_Code" />
+                <ScalarProperty Name="Ship_State" ColumnName="Ship_State" />
+                <ScalarProperty Name="Ship_Address" ColumnName="Ship_Address" />
+                <ScalarProperty Name="Shipped_Date" ColumnName="Shipped_Date" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Order_No" ColumnName="Order_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

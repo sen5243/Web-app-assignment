@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/index.aspx" title="Home"  description="HomePage">
+    <siteMapNode url="" title="Products"  description="Products">
+		<siteMapNode url="~/products.aspx" title="Products"  description="Products" />
+		<siteMapNode url="~/mac.aspx" title="Mac"  description="Mac" />
+		<siteMapNode url="~/iphone.aspx" title="iphone"  description="iphone"/>
+		<siteMapNode url="~/ipad.aspx" title="iPad"  description="iPad" />
+		<siteMapNode url="~/airpod.aspx" title="AirPod"  description="AirPod" />
+		<siteMapNode url="~/watches.aspx" title="Watches"  description="Watches" />
+		<siteMapNode url="~/tv.aspx" title="TV"  description="TV" />
+		<siteMapNode url="~/accessories.aspx" title="Accessories"  description="Accessories" />
+		<siteMapNode url="~/services.aspx" title="Services"  description="Services" />
+	</siteMapNode>
+	 <siteMapNode url="" title="Support"  description="Support">
+		<siteMapNode url="~/support.aspx" title="Support"  description="Support" />
+		<siteMapNode url="~/contact.aspx" title="Contact Us"  description="Contact Us" />
+	</siteMapNode>
+	<siteMapNode url="~/about.aspx" title="About Us"  description="About Us"/>
+	<siteMapNode url="~/career.aspx" title="Join Us"  description="Join Us"/>
+	<siteMapNode url="~/shop.aspx" title="Shop"  description="Shop"/>
+
+	  <siteMapNode url="~/OrdersPage.aspx" title="OrdersPage"  description="Orders">
+		  <siteMapNode url="~/UpdatePage.aspx" title="UpdatePage"  description="UpdatePage" />
+		  <siteMapNode url="~/Report.aspx" title="Report"  description="Report" />
+		  <siteMapNode url="~/ConfirmOrders.aspx" title="ConfirmOrders"  description="ConfirmOrders" />
+	  </siteMapNode>
+
+  </siteMapNode>
+	
+</siteMap>
